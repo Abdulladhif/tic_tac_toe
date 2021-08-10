@@ -45,7 +45,7 @@ function move(ind, sign) {
   gameState[ind] = sign
   console.log(gameState)
 
-
+  let winner = false;
   for (let i = 0; i < wins.length; i++) {
      let [a, b, c] = wins[i] 
       if(cmp(gameState[a], gameState[b], gameState[c])){
@@ -58,10 +58,10 @@ function move(ind, sign) {
         cols[a].classList.add('win')
         cols[b].classList.add('win')
         cols[c].classList.add('win')
-    
+        winner =true;
       }
   }
-  if(!gameState.includes(null)){
+  if((!gameState.includes(null)) && !winner){
     drawMessage()
   }
 }
