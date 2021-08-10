@@ -5,7 +5,8 @@ const _ = document,
 
 let cur = true
 let gameState = new Array(9).fill(null)
-let currentPlayer = "X"; //stores current player 
+let currentPlayer = "X"; //stores current player
+let gameover = false;
 
 const wins = [
     [0, 1, 2],
@@ -34,7 +35,7 @@ cols.forEach(col => {
 function play(e) {
   const __ = e.target
   console.log(e.target)
-  if(!__.innerHTML){
+  if(!__.innerHTML && !gameover){
     cur = !cur
     __.innerHTML = cur ? (playerTurn("X"),e.target.textContent ='<h1 name="O">O</h1>' ):(playerTurn("O"),  e.target.textContent='<h1 name="X">X</h1>')
     move(parseInt(__.id.split(/\D+/g)[1]), __.childNodes[0].getAttribute('name'))
@@ -59,9 +60,11 @@ function move(ind, sign) {
         cols[b].classList.add('win')
         cols[c].classList.add('win')
         winner =true;
+        gameover =true;
       }
   }
   if((!gameState.includes(null)) && !winner){
+    gameover =true;
     drawMessage()
   }
 }
@@ -78,6 +81,7 @@ function fnreset() {
     gameState = new Array(9).fill(null)
     playerTurn("X")
     cur= true
+    gameover= false;
 }
 
 
